@@ -66,8 +66,8 @@
       inset: 0;
       pointer-events: none;
       z-index: 9998;
-      opacity: 0.055;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.09;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 180px 180px;
     }
 
@@ -422,7 +422,7 @@
     /* ─── TECH STACK MARQUEE ─────────────────────── */
     @keyframes marquee {
       0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-33.333%); }
     }
     .marquee-wrap {
       overflow: hidden;
@@ -449,7 +449,7 @@
       display: flex;
       align-items: center;
       width: max-content;
-      animation: marquee 30s linear infinite;
+      animation: marquee 36s linear infinite;
     }
     .marquee-wrap:hover .marquee-track {
       animation-play-state: paused;
@@ -561,9 +561,9 @@
   <nav id="nav">
     <a href="#" class="nav-logo">ZW</a>
     <div class="nav-links">
-      <a href="#work">Work</a>
+      <a href="#hero">Profile</a>
       <a href="#about">About</a>
-      <a href="#stack">Stack</a>
+      <a href="#work" style="color: var(--brand);">Projects</a>
       <a href="#contact">Contact</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -573,9 +573,9 @@
 
   <!-- Mobile menu overlay -->
   <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
-    <a href="#work"    class="mobile-link">Work</a>
+    <a href="#hero"    class="mobile-link">Profile</a>
     <a href="#about"   class="mobile-link">About</a>
-    <a href="#stack"   class="mobile-link">Stack</a>
+    <a href="#work"    class="mobile-link">Projects</a>
     <a href="#contact" class="mobile-link">Contact</a>
   </div>
 
@@ -594,7 +594,7 @@
       overflow: hidden;
     "
   >
-    <div class="container" style="width: 100%; padding-top: clamp(3rem, 8vh, 4rem); padding-bottom: clamp(4rem, 10vh, 6rem);">
+    <div class="container" style="width: 100%; padding-top: clamp(3rem, 8vh, 4rem); padding-bottom: clamp(1.5rem, 4vh, 2.5rem);">
       <div class="hero-grid">
 
         <!-- IMAGE -->
@@ -632,7 +632,7 @@
           </div>
 
           <div class="h-name" style="margin-bottom: 0.75rem;">
-            <span class="font-display" style="font-size: clamp(1.625rem, 4vw, 2.625rem); font-weight: 300; letter-spacing: -0.025em; color: var(--warm-white);">Zachery</span><span class="font-display" style="font-size: clamp(1.625rem, 4vw, 2.625rem); font-weight: 300; letter-spacing: -0.025em; color: var(--brand); margin-left: 0.3em;">Wong</span>
+            <span style="font-family: 'Figtree', sans-serif; font-size: clamp(1.625rem, 4vw, 2.625rem); font-weight: 500; letter-spacing: -0.02em; color: var(--warm-white);">Zachery</span><span style="font-family: 'Figtree', sans-serif; font-size: clamp(1.625rem, 4vw, 2.625rem); font-weight: 500; letter-spacing: -0.02em; color: var(--brand); margin-left: 0.3em;">Wong</span>
           </div>
 
           <h1
@@ -654,7 +654,7 @@
               margin: 0 auto 2.5rem;
             "
           >
-            From voice agents to full automations — I design AI systems that remove friction and do real work.
+            From full automations to agentic solutions, I design AI systems that replace hours of manual work.
           </p>
 
           <div class="h-ctas hero-ctas-wrap" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
@@ -663,6 +663,77 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Marquee strip (inside hero, below grid) -->
+      <div style="margin-top: 2.5rem; border-top: 1px solid var(--border); padding-top: 1.25rem;">
+        <div class="marquee-wrap">
+          <div class="marquee-track">
+            <!-- Set 1 -->
+            <span class="marquee-item hi">⚡ n8n</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item hi">◆ Claude Code</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Lovable</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">ElevenLabs</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Vapi</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Apify</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">GitHub</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">REST APIs</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Webhooks</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Supabase</span>
+            <span class="marquee-sep">·</span>
+            <!-- Set 2 -->
+            <span class="marquee-item hi">⚡ n8n</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item hi">◆ Claude Code</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Lovable</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">ElevenLabs</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Vapi</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Apify</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">GitHub</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">REST APIs</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Webhooks</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Supabase</span>
+            <span class="marquee-sep">·</span>
+            <!-- Set 3 -->
+            <span class="marquee-item hi">⚡ n8n</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item hi">◆ Claude Code</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Lovable</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">ElevenLabs</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Vapi</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Apify</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">GitHub</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">REST APIs</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Webhooks</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Supabase</span>
+            <span class="marquee-sep">·</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -678,51 +749,6 @@
       gap: 4px;
     ">
       <div class="scroll-line" style="width: 1px; height: 44px; background: linear-gradient(to bottom, var(--brand), transparent);"></div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════
-       TECH STACK MARQUEE
-  ═══════════════════════════════════════════════════ -->
-  <section id="stack" style="padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div class="marquee-wrap">
-      <div class="marquee-track">
-        <!-- Set 1 -->
-        <span class="marquee-item hi">⚡ n8n</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item hi">◆ Claude Code</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">Lovable</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">ElevenLabs</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">Vapi</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">Apify</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">GitHub</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">REST APIs</span>
-        <span class="marquee-sep">·</span>
-        <!-- Set 2 (duplicate for seamless loop) -->
-        <span class="marquee-item hi">⚡ n8n</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item hi">◆ Claude Code</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">Lovable</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">ElevenLabs</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">Vapi</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">Apify</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">GitHub</span>
-        <span class="marquee-sep">·</span>
-        <span class="marquee-item">REST APIs</span>
-        <span class="marquee-sep">·</span>
-      </div>
     </div>
   </section>
 
@@ -758,13 +784,16 @@
         <!-- Bio + detail grid (right / bottom) -->
         <div class="reveal reveal-delay-2">
           <p style="font-size: 0.9375rem; color: #C8BFB5; line-height: 1.82; margin-bottom: 1rem;">
-            I'm Zachery. Mechanical Engineer by training, AI Automation Engineer by conviction. Since early 2025, I've been building workflow automations to solve my own problems first. Now I build agentic workflows and voice AI products, from self-taught fundamentals to shipping with confidence.
+            I'm Zachery. Mechanical Engineer by training, AI Automation Engineer by conviction.
           </p>
           <p style="font-size: 0.9375rem; color: #C8BFB5; line-height: 1.82; margin-bottom: 1rem;">
-            My flagship project, Tello, is a voice interview coach launching April 2026. Before that, an NHS job search tool that helped my girlfriend find her role in London, which is how I ended up here. Before that, personal automation tools I build and use every day.
+            It started with personal pain points. Small automations running quietly in the background, streamlining my daily routine, tracking my workouts, keeping me organised. Then a job search tool to help my girlfriend find her role in London. Each project taught me something the last one couldn't.
+          </p>
+          <p style="font-size: 0.9375rem; color: #C8BFB5; line-height: 1.82; margin-bottom: 1rem;">
+            Now, I use my experience to build agentic workflows. My flagship project, Tello, is a SaaS voice interview coach launching April 2026. It conducts industry-researched mock interviews via a voice agent, grades responses through a weighted rubric, and converts probabilistic AI outputs into deterministic, actionable scores.
           </p>
           <p style="font-size: 0.9375rem; color: #C8BFB5; line-height: 1.82; margin-bottom: 2.5rem;">
-            I'm drawn to ambitious startups where there's real value to create and genuine ownership of the work. If you're building something worth automating, let's connect.
+            I'm drawn to ambitious startups where ownership and accountability are valued, surrounded by peers who are shaping how AI agents will transform the way teams operate. If these values align with yours, I'd love to join you.
           </p>
 
           <!-- Detail grid -->
@@ -797,7 +826,7 @@
 
       <!-- Section header -->
       <div class="reveal" style="margin-bottom: 2.5rem;">
-        <div class="section-label" style="margin-bottom: 0.75rem;">Current Projects</div>
+        <div class="section-label" style="margin-bottom: 0.75rem;">Current Work</div>
         <h2
           class="font-display"
           style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1;"
@@ -833,7 +862,7 @@
 
           <!-- Content -->
           <div class="tello-content" style="padding: clamp(1.5rem, 4vw, 2.5rem);">
-            <div class="section-label" style="margin-bottom: 0.75rem;">Flagship Project</div>
+            <div style="display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(232,162,92,0.12); border: 1px solid rgba(232,162,92,0.35); border-radius: 100px; padding: 3px 12px; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); margin-bottom: 0.875rem;">★ Flagship Project</div>
             <h3
               class="font-display"
               style="font-size: clamp(1.875rem, 4vw, 2.5rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.625rem;"
