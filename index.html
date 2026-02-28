@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zachery Wong — AI Automation Engineer</title>
+  <meta name="description" content="AI Automation Engineer based in London. Building agentic workflows, voice AI, and intelligent systems that do real work.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#E8A25C',
+            'brand-dim': '#C48240',
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body: ['Figtree', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0F0D0A;
+      --surface: #1A1714;
+      --surface-hi: #242019;
+      --brand: #E8A25C;
+      --brand-dim: #C48240;
+      --warm-white: #F5EFE6;
+      --muted: #8A7F72;
+      --muted-2: #5C5349;
+      --border: rgba(232, 162, 92, 0.12);
+      --border-strong: rgba(232, 162, 92, 0.22);
+      --shadow-card: 0 1px 2px rgba(0,0,0,.55), 0 4px 20px rgba(0,0,0,.4), 0 0 48px rgba(232,162,92,.05);
+      --shadow-brand: 0 2px 8px rgba(232,162,92,.22), 0 8px 36px rgba(232,162,92,.14), 0 0 72px rgba(232,162,92,.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 90% -5%, rgba(232,162,92,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 10% 90%, rgba(196,130,64,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 35% at 50% 55%, rgba(232,162,92,0.02) 0%, transparent 70%);
+      color: var(--warm-white);
+      font-family: 'Figtree', sans-serif;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── NAVIGATION ─────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    #nav.scrolled {
+      background: rgba(15, 13, 10, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--brand);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: opacity 0.2s ease;
+    }
+    .nav-logo:hover { opacity: 0.65; }
+    .nav-logo:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 2px; }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+
+    .nav-links a {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--warm-white); }
+    .nav-links a:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 2px; }
+
+    /* Hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      margin: -10px;
+    }
+    @media (min-width: 768px) { .hamburger { display: none; } }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--warm-white);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    }
+    .hamburger:hover span { background: var(--brand); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(10, 9, 7, 0.98);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transform: translateX(100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    }
+    #mobile-menu.open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    #mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.75rem, 12vw, 4rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #mobile-menu a:hover { color: var(--brand); transform: translateX(10px); }
+
+    /* ─── LAYOUT UTILITIES ───────────────────────── */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+    }
+    .section-pad {
+      padding-top: clamp(5rem, 10vw, 8rem);
+      padding-bottom: clamp(5rem, 10vw, 8rem);
+    }
+    .section-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    /* ─── BUTTONS ────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--brand);
+      color: #100E0B;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.2s ease;
+    }
+    .btn-primary:hover { transform: scale(1.04) translateY(-1px); box-shadow: var(--shadow-brand); background: #EEB870; }
+    .btn-primary:active { transform: scale(0.97); }
+    .btn-primary:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--brand);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 13px 0;
+      transition: gap 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+    }
+    .btn-ghost:hover { gap: 0.7rem; opacity: 0.75; }
+    .btn-ghost:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 2px; }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      color: var(--brand);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      transition: border-color 0.2s ease, gap 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn-link:hover { border-color: var(--brand); gap: 0.6rem; }
+    .btn-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 2px; }
+
+    /* ─── CHIPS ──────────────────────────────────── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 11px;
+      background: var(--surface-hi);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── CARDS ──────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-brand); }
+
+    /* ─── SCROLL REVEAL ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── HERO ANIMATIONS ────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .h-label   { animation: fadeUp 0.7s ease 0.15s both; }
+    .h-line1   { animation: fadeUp 0.85s ease 0.28s both; }
+    .h-line2   { animation: fadeUp 0.85s ease 0.38s both; }
+    .h-line3   { animation: fadeUp 0.85s ease 0.48s both; }
+    .h-sub     { animation: fadeUp 0.7s ease 0.62s both; }
+    .h-ctas    { animation: fadeUp 0.7s ease 0.76s both; }
+    .h-img     { animation: fadeUp 0.95s ease 0.22s both; }
+
+    /* Scroll pulse */
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50%       { opacity: 0.15; transform: scaleY(0.6); }
+    }
+    .scroll-line { animation: scrollPulse 2.2s ease-in-out infinite; transform-origin: top; }
+
+    /* ─── HERO LAYOUT ────────────────────────────── */
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .hero-image-wrap {
+      order: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-text-wrap {
+      order: 2;
+      text-align: center;
+    }
+    .hero-label-inner {
+      justify-content: center;
+    }
+    @media (min-width: 1024px) {
+      .hero-grid {
+        flex-direction: row;
+        align-items: center;
+        gap: 5rem;
+      }
+      .hero-text-wrap {
+        order: 1;
+        flex: 3;
+        text-align: left;
+      }
+      .hero-image-wrap {
+        order: 2;
+        flex: 2;
+        justify-content: flex-end;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+      }
+      .hero-ctas-wrap { justify-content: flex-start !important; }
+      .hero-sub-text { margin-left: 0 !important; margin-right: 0 !important; }
+      .hero-label-inner { justify-content: flex-start; }
+    }
+
+    /* ─── ABOUT LAYOUT ───────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 1024px) {
+      .about-grid { grid-template-columns: 5fr 6fr; gap: 6rem; align-items: start; }
+    }
+
+    /* ─── PROJECTS LAYOUT ────────────────────────── */
+    .tello-inner {
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 1024px) {
+      .tello-inner { flex-direction: row; }
+      .tello-img { flex: 0 0 55%; }
+      .tello-content { flex: 1; }
+    }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    @media (min-width: 768px) {
+      .project-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── CAROUSEL ───────────────────────────────── */
+    .carousel-track {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 1.5rem 1rem;
+      margin: 0 -1.5rem;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-slide {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+    }
+    @media (min-width: 768px) { .carousel-slide { flex: 0 0 340px; } }
+
+    /* Carousel arrows (desktop only) */
+    .carousel-arrows {
+      display: none;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    @media (min-width: 768px) { .carousel-arrows { display: flex; } }
+    .carousel-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-hi);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .carousel-btn:hover { background: var(--brand); color: #0F0D0A; transform: scale(1.1); }
+    .carousel-btn:active { transform: scale(0.95); }
+    .carousel-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+    /* ─── STACK TILES ────────────────────────────── */
+    .stack-primary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 640px) { .stack-primary { grid-template-columns: 1fr 1fr; } }
+
+    .stack-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+      box-shadow: var(--shadow-card);
+    }
+    .stack-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-brand); }
+    .stack-tile.highlighted { border-color: var(--border-strong); }
+
+    .stack-secondary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+    }
+    .stack-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 15px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: default;
+    }
+    .stack-chip:hover { color: var(--warm-white); border-color: var(--border-strong); transform: translateY(-2px); }
+
+    /* ─── IMAGE CARD ─────────────────────────────── */
+    .img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(232,162,92,0.05) 0%,
+        transparent 35%,
+        rgba(15,13,10,0.55) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* ─── CONTACT LINK ───────────────────────────── */
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--warm-white);
+      font-size: clamp(1.125rem, 3vw, 1.375rem);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      text-decoration: none;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s ease, border-color 0.2s ease, gap 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .contact-link:hover { color: var(--brand); border-color: var(--border-strong); gap: 1rem; }
+    .contact-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 2px; }
+    .contact-link .arrow {
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .contact-link:hover .arrow { transform: translateX(4px); }
+
+    /* ─── MISC ───────────────────────────────────── */
+    .detail-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    .detail-value { font-size: 0.875rem; color: var(--warm-white); }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════ -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">ZW</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <a href="#work"    class="mobile-link">Work</a>
+    <a href="#about"   class="mobile-link">About</a>
+    <a href="#stack"   class="mobile-link">Stack</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════ -->
+  <section
+    id="hero"
+    style="
+      min-height: 100svh;
+      padding-top: 60px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    "
+  >
+    <div class="container" style="width: 100%; padding-top: clamp(3rem, 8vh, 4rem); padding-bottom: clamp(4rem, 10vh, 6rem);">
+      <div class="hero-grid">
+
+        <!-- IMAGE -->
+        <div class="hero-image-wrap h-img">
+          <div style="
+            position: relative;
+            width: clamp(150px, 38vw, 400px);
+            border-radius: 6px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            box-shadow:
+              0 2px 6px rgba(0,0,0,.6),
+              0 16px 56px rgba(0,0,0,.45),
+              0 0 100px rgba(232,162,92,0.12),
+              inset 0 0 0 1px rgba(232,162,92,0.08);
+          ">
+            <img
+              src="zachery-headshot.jpg"
+              alt="Zachery Wong"
+              style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%; display: block;"
+            >
+            <!-- Warm tint + bottom fade -->
+            <div style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(232,162,92,0.07) 0%, transparent 45%, rgba(15,13,10,0.65) 100%);"></div>
+            <!-- Left accent line -->
+            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent 10%, rgba(232,162,92,0.45) 50%, transparent 90%);"></div>
+          </div>
+        </div>
+
+        <!-- TEXT -->
+        <div class="hero-text-wrap">
+          <div class="h-label section-label hero-label-inner" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="display: inline-block; width: 20px; height: 1px; background: var(--brand); opacity: 0.7;"></span>
+            AI Automation Engineer &nbsp;·&nbsp; London
+            <span style="display: inline-block; width: 20px; height: 1px; background: var(--brand); opacity: 0.7;"></span>
+          </div>
+
+          <h1
+            class="font-display"
+            style="font-size: clamp(3.5rem, 11vw, 6.5rem); font-weight: 300; line-height: 0.92; letter-spacing: -0.03em; color: var(--warm-white); margin-bottom: 2rem;"
+          >
+            <span class="h-line1" style="display: block;">Building</span>
+            <span class="h-line2" style="display: block; color: var(--brand);">things that</span>
+            <span class="h-line3" style="display: block;">work on<br>their own<span style="color: var(--brand);">.</span></span>
+          </h1>
+
+          <p
+            class="h-sub hero-sub-text"
+            style="
+              font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+              color: var(--muted);
+              line-height: 1.72;
+              max-width: 480px;
+              margin: 0 auto 2.5rem;
+            "
+          >
+            From voice agents to full automations — I design AI systems that remove friction and do real work.
+          </p>
+
+          <div class="h-ctas hero-ctas-wrap" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="#work" class="btn-primary">View My Work <span>↓</span></a>
+            <a href="#contact" class="btn-ghost">Get in touch <span>→</span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div style="
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    ">
+      <div class="scroll-line" style="width: 1px; height: 44px; background: linear-gradient(to bottom, var(--brand), transparent);"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════════════════════ -->
+  <section id="about" class="section-pad">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Pull quote (left / top) -->
+        <div class="reveal">
+          <div class="section-label" style="margin-bottom: 1.5rem;">About</div>
+          <blockquote
+            class="font-display"
+            style="
+              font-size: clamp(1.625rem, 4vw, 2.375rem);
+              font-weight: 300;
+              font-style: italic;
+              line-height: 1.25;
+              letter-spacing: -0.02em;
+              color: var(--warm-white);
+              border-left: 2px solid var(--brand);
+              padding-left: 1.5rem;
+              margin: 0;
+            "
+          >
+            "Engineering taught me to think in systems. AI automation taught me what's possible when those systems can think back."
+          </blockquote>
+        </div>
+
+        <!-- Bio + detail grid (right / bottom) -->
+        <div class="reveal reveal-delay-2">
+          <p style="font-size: 0.9375rem; color: var(--muted); line-height: 1.82; margin-bottom: 1rem;">
+            I'm Zachery — MEng by training, AI Automation Engineer by conviction. Since early 2025, I've been building agentic workflows and voice AI products, starting from self-taught fundamentals and shipping things fast.
+          </p>
+          <p style="font-size: 0.9375rem; color: var(--muted); line-height: 1.82; margin-bottom: 1rem;">
+            My flagship project, Tello, is an AI voice interview coach launching April 2026. Before that: an NHS job search tool that helped my girlfriend land her role in London. Before that: personal automation tools I use every day.
+          </p>
+          <p style="font-size: 0.9375rem; color: var(--muted); line-height: 1.82; margin-bottom: 2.5rem;">
+            I work best in small, ambitious teams where there's real work to be done and ownership is expected. If that's you — I'd like to talk.
+          </p>
+
+          <!-- Detail grid -->
+          <div style="border-top: 1px solid var(--border);">
+            <div class="detail-row">
+              <span class="detail-label">Background</span>
+              <span class="detail-value">MEng, Mechanical Engineering</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Focus</span>
+              <span class="detail-value">AI Automation · Agentic Systems · Voice AI</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Currently</span>
+              <span class="detail-value">Open to roles — London &amp; Remote</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PROJECTS
+  ═══════════════════════════════════════════════════ -->
+  <section id="work" class="section-pad" style="padding-top: 0;">
+    <div class="container">
+
+      <!-- Section header -->
+      <div class="reveal" style="margin-bottom: 2.5rem;">
+        <div class="section-label" style="margin-bottom: 0.75rem;">Selected Work</div>
+        <h2
+          class="font-display"
+          style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1;"
+        >
+          Projects that do real things.
+        </h2>
+      </div>
+
+      <!-- ── TELLO (flagship) ────────────────────── -->
+      <div class="card reveal" style="margin-bottom: 1.25rem;">
+        <div class="tello-inner">
+
+          <!-- Image -->
+          <div class="tello-img img-wrap" style="height: clamp(240px, 45vw, 440px);">
+            <img src="assets/tello-preview.png" alt="Tello — AI Interview Coach interface">
+            <div class="img-overlay"></div>
+            <!-- Badge -->
+            <div style="
+              position: absolute;
+              top: 1rem;
+              right: 1rem;
+              background: rgba(15,13,10,0.85);
+              border: 1px solid var(--border-strong);
+              border-radius: 100px;
+              padding: 4px 12px;
+              font-size: 0.625rem;
+              font-weight: 600;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--brand);
+            ">Launching April 2026</div>
+          </div>
+
+          <!-- Content -->
+          <div class="tello-content" style="padding: clamp(1.5rem, 4vw, 2.5rem);">
+            <div class="section-label" style="margin-bottom: 0.75rem;">Flagship Project</div>
+            <h3
+              class="font-display"
+              style="font-size: clamp(1.875rem, 4vw, 2.5rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.625rem;"
+            >
+              Tello
+            </h3>
+            <p style="font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; letter-spacing: 0.02em;">
+              AI Voice Interview Coach
+            </p>
+            <p style="font-size: 0.9375rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.875rem;">
+              A SaaS platform that conducts realistic mock interviews via a voice agent, structured around industry-common topics and questions.
+            </p>
+            <p style="font-size: 0.9375rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.75rem;">
+              Graded using a weighted rubric that converts probabilistic AI outputs into deterministic, actionable scores — built with careful n8n evaluations, guardrails, and edge-case coverage.
+            </p>
+
+            <!-- Chips -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 2rem;">
+              <span class="chip">n8n</span>
+              <span class="chip">ElevenLabs</span>
+              <span class="chip">Claude Code</span>
+              <span class="chip">Lovable</span>
+            </div>
+
+            <!-- CTA -->
+            <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+              <a href="https://excel-interview-lab.lovable.app/" target="_blank" rel="noopener" class="btn-primary" style="font-size: 0.8125rem; padding: 11px 22px;">
+                View Early Access <span>↗</span>
+              </a>
+              <span style="font-size: 0.75rem; color: var(--muted-2); letter-spacing: 0.04em;">Early access — mid March 2026</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── NHS + PERSONAL TOOLS ROW ─────────────── -->
+      <div class="project-row">
+
+        <!-- NHS Job Search Assistant -->
+        <div class="card reveal">
+          <div class="img-wrap" style="height: 200px;">
+            <img src="assets/nhs-preview.png" alt="UK Healthcare Job Assistant interface">
+            <div class="img-overlay"></div>
+          </div>
+          <div style="padding: 1.5rem;">
+            <div class="section-label" style="margin-bottom: 0.625rem;">First Shipped Project</div>
+            <h3
+              class="font-display"
+              style="font-size: clamp(1.375rem, 3vw, 1.75rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem;"
+            >
+              NHS Job Search Assistant
+            </h3>
+            <p style="
+              font-size: 0.8125rem;
+              font-style: italic;
+              color: var(--brand);
+              margin-bottom: 1rem;
+              font-family: 'Cormorant Garamond', serif;
+              font-size: 1rem;
+            ">"Helped my girlfriend find her job in London."</p>
+            <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.72; margin-bottom: 1.25rem;">
+              Scrapes the NHS jobs website, filters listings by your criteria, and delivers a personalised Excel sheet straight to your inbox — hands free.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 1.5rem;">
+              <span class="chip">n8n</span>
+              <span class="chip">Apify</span>
+              <span class="chip">Lovable</span>
+            </div>
+            <a href="https://ukhealthcarejobassistant.zach13.com/" target="_blank" rel="noopener" class="btn-link">
+              View Demo <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Personal Automation Suite (carousel) -->
+        <div class="card reveal reveal-delay-2" style="overflow: clip;">
+          <div style="padding: 1.5rem 0 0;">
+            <div style="padding: 0 1.5rem; margin-bottom: 1.25rem;">
+              <div class="section-label" style="margin-bottom: 0.625rem;">Personal Tools</div>
+              <h3
+                class="font-display"
+                style="font-size: clamp(1.375rem, 3vw, 1.75rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.625rem;"
+              >
+                Personal Automation Suite
+              </h3>
+              <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.7;">
+                Mini-automations I use every day. Proof that the best tools are the ones you build for yourself.
+              </p>
+            </div>
+
+            <!-- Horizontal Carousel -->
+            <div id="carousel" class="carousel-track" style="padding: 0 1.5rem 1.5rem;">
+
+              <!-- Slide 1: Journal Bot -->
+              <div class="carousel-slide">
+                <div style="
+                  background: var(--surface-hi);
+                  border: 1px solid var(--border);
+                  border-radius: 8px;
+                  padding: 1.25rem;
+                  height: 100%;
+                ">
+                  <div style="
+                    width: 36px; height: 36px; border-radius: 8px;
+                    background: rgba(232,162,92,0.12);
+                    border: 1px solid var(--border-strong);
+                    display: flex; align-items: center; justify-content: center;
+                    font-size: 1.1rem;
+                    margin-bottom: 1rem;
+                  ">📓</div>
+                  <h4 style="font-size: 0.9375rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.5rem;">Journal Bot</h4>
+                  <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.68; margin-bottom: 1rem;">
+                    Reads my Google Sheet journal at a fixed time daily. Logs achievements, to-dos, and reminds me of my girlfriend's shift times — automatically.
+                  </p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+                    <span class="chip">n8n</span>
+                    <span class="chip">Google Sheets</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Gym Logger -->
+              <div class="carousel-slide">
+                <div style="
+                  background: var(--surface-hi);
+                  border: 1px solid var(--border);
+                  border-radius: 8px;
+                  padding: 1.25rem;
+                  height: 100%;
+                ">
+                  <div style="
+                    width: 36px; height: 36px; border-radius: 8px;
+                    background: rgba(232,162,92,0.12);
+                    border: 1px solid var(--border-strong);
+                    display: flex; align-items: center; justify-content: center;
+                    font-size: 1.1rem;
+                    margin-bottom: 1rem;
+                  ">🏋️</div>
+                  <h4 style="font-size: 0.9375rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.5rem;">Gym Logger</h4>
+                  <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.68; margin-bottom: 1rem;">
+                    Retrieves my recent gym reps so I know exactly what to target next — without opening a spreadsheet. Logs new entries on the way out.
+                  </p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+                    <span class="chip">n8n</span>
+                    <span class="chip">Google Sheets</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Carousel arrow controls -->
+            <div class="carousel-arrows" style="padding: 0 1.5rem 1.5rem;">
+              <button class="carousel-btn" id="carousel-prev" aria-label="Previous slide">‹</button>
+              <button class="carousel-btn" id="carousel-next" aria-label="Next slide">›</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       STACK
+  ═══════════════════════════════════════════════════ -->
+  <section id="stack" class="section-pad">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 2.5rem;">
+        <div class="section-label" style="margin-bottom: 0.75rem;">Tools &amp; Stack</div>
+        <h2
+          class="font-display"
+          style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1;"
+        >
+          The tools I build with.
+        </h2>
+      </div>
+
+      <!-- Primary highlighted tiles -->
+      <div class="stack-primary reveal reveal-delay-1">
+
+        <!-- n8n -->
+        <div class="stack-tile highlighted">
+          <div style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: rgba(232,162,92,0.1);
+            border: 1px solid var(--border-strong);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+          ">⚡</div>
+          <div style="font-size: 1rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.375rem;">n8n</div>
+          <div style="font-size: 0.8125rem; color: var(--muted); line-height: 1.55;">Workflow automation backbone</div>
+          <div style="margin-top: 0.75rem;">
+            <span style="
+              font-size: 0.625rem;
+              font-weight: 600;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--brand);
+              border: 1px solid rgba(232,162,92,0.25);
+              border-radius: 100px;
+              padding: 2px 8px;
+            ">Primary</span>
+          </div>
+        </div>
+
+        <!-- Claude Code -->
+        <div class="stack-tile highlighted">
+          <div style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            background: rgba(232,162,92,0.1);
+            border: 1px solid var(--border-strong);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+          ">🤖</div>
+          <div style="font-size: 1rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.375rem;">Claude Code</div>
+          <div style="font-size: 0.8125rem; color: var(--muted); line-height: 1.55;">AI coding &amp; agentic workflows</div>
+          <div style="margin-top: 0.75rem;">
+            <span style="
+              font-size: 0.625rem;
+              font-weight: 600;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--brand);
+              border: 1px solid rgba(232,162,92,0.25);
+              border-radius: 100px;
+              padding: 2px 8px;
+            ">Primary</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Secondary chips -->
+      <div class="stack-secondary reveal reveal-delay-2" style="margin-bottom: 2rem;">
+        <span class="stack-chip">Lovable</span>
+        <span class="stack-chip">ElevenLabs</span>
+        <span class="stack-chip">Vapi</span>
+        <span class="stack-chip">Apify</span>
+        <span class="stack-chip">GitHub</span>
+        <span class="stack-chip">REST APIs</span>
+      </div>
+
+      <!-- Credibility callout -->
+      <div class="reveal reveal-delay-3" style="
+        background: var(--surface);
+        border-left: 2px solid var(--brand);
+        border-radius: 0 6px 6px 0;
+        padding: 1.125rem 1.5rem;
+        max-width: 560px;
+      ">
+        <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.68; margin-bottom: 0.25rem;">
+          Participated in <span style="color: var(--warm-white);">Nate Herk's Voice Agent Hackathon</span> — a founding step in voice AI development.
+        </p>
+        <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.68;">
+          Self-taught through AIS community and building in public.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════════════════ -->
+  <section id="contact" class="section-pad" style="position: relative; overflow: hidden;">
+
+    <!-- Ambient glow -->
+    <div style="
+      position: absolute;
+      bottom: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(232,162,92,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    "></div>
+
+    <div class="container" style="position: relative;">
+      <div style="max-width: 680px;">
+        <div class="reveal section-label" style="margin-bottom: 1.25rem;">Contact</div>
+
+        <h2
+          class="font-display reveal reveal-delay-1"
+          style="
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 1.25rem;
+          "
+        >
+          Let's work<br>together.
+        </h2>
+
+        <p class="reveal reveal-delay-2" style="font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 480px; margin-bottom: 3rem;">
+          I'm looking for roles at ambitious startups where I can build and own AI automation systems end-to-end.
+        </p>
+
+        <div class="reveal reveal-delay-3" style="display: flex; flex-direction: column; max-width: 420px;">
+          <a href="mailto:zach.wzw@gmail.com" class="contact-link">
+            <span style="font-size: 0.875rem; color: var(--muted); min-width: 54px; font-family: 'Figtree', sans-serif; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.6875rem;">Email</span>
+            zach.wzw@gmail.com
+            <span class="arrow" style="margin-left: auto; color: var(--brand);">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════ -->
+  <footer style="
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+  ">
+    <div class="container" style="
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    ">
+      <span style="font-size: 0.75rem; color: var(--muted-2);">© 2026 Zachery Wong</span>
+      <span style="font-size: 0.75rem; color: var(--muted-2);">London, UK</span>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════════ -->
+  <script>
+    // ── Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    function toggleMenu(open) {
+      menuOpen = open;
+      hamburger.classList.toggle('open', open);
+      mobileMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!menuOpen));
+
+    // Close on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && menuOpen) toggleMenu(false);
+    });
+
+    // ── Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Carousel
+    const track = document.getElementById('carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+
+    if (track && prevBtn && nextBtn) {
+      const slideWidth = () => track.querySelector('.carousel-slide')?.offsetWidth + 16 || 316;
+
+      prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -slideWidth(), behavior: 'smooth' });
+      });
+      nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: slideWidth(), behavior: 'smooth' });
+      });
+    }
+
+    // ── Scroll indicator fade
+    const scrollLine = document.querySelector('.scroll-line');
+    if (scrollLine) {
+      window.addEventListener('scroll', () => {
+        const opacity = Math.max(0, 1 - window.scrollY / 200);
+        scrollLine.parentElement.style.opacity = opacity;
+      }, { passive: true });
+    }
+  </script>
+
+</body>
+</html>
