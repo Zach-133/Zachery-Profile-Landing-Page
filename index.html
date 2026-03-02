@@ -495,6 +495,9 @@
       object-position: top center;
       display: block;
     }
+    .tello-img img {
+      object-position: 50% 15%;
+    }
     .img-overlay {
       position: absolute;
       inset: 0;
@@ -855,7 +858,7 @@
             <!-- Badge -->
             <div style="
               position: absolute;
-              top: 1rem;
+              top: clamp(1.5rem, 4vw, 2.5rem);
               right: 1rem;
               background: rgba(15,13,10,0.85);
               border: 1px solid var(--border-strong);
@@ -893,7 +896,7 @@
 
             <!-- CTA -->
             <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
-              <a href="https://excel-interview-lab.lovable.app/" target="_blank" rel="noopener" class="btn-primary" style="font-size: 0.8125rem; padding: 11px 22px;">
+              <a href="https://tello.zach13.com/" target="_blank" rel="noopener" class="btn-primary" style="font-size: 0.8125rem; padding: 11px 22px;">
                 View Early Access
               </a>
               <span style="font-size: 0.75rem; color: var(--muted-2); letter-spacing: 0.04em;">Early access — mid March 2026</span>
