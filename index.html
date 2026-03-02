@@ -452,7 +452,7 @@
       display: flex;
       align-items: center;
       width: max-content;
-      animation: marquee 36s linear infinite;
+      animation: marquee 39s linear infinite;
     }
     .marquee-wrap:hover .marquee-track {
       animation-play-state: paused;
@@ -693,6 +693,8 @@
             <span class="marquee-sep">·</span>
             <span class="marquee-item">Supabase</span>
             <span class="marquee-sep">·</span>
+            <span class="marquee-item">Cloudflare</span>
+            <span class="marquee-sep">·</span>
             <!-- Set 2 -->
             <span class="marquee-item hi">⚡ n8n</span>
             <span class="marquee-sep">·</span>
@@ -714,6 +716,8 @@
             <span class="marquee-sep">·</span>
             <span class="marquee-item">Supabase</span>
             <span class="marquee-sep">·</span>
+            <span class="marquee-item">Cloudflare</span>
+            <span class="marquee-sep">·</span>
             <!-- Set 3 -->
             <span class="marquee-item hi">⚡ n8n</span>
             <span class="marquee-sep">·</span>
@@ -734,6 +738,8 @@
             <span class="marquee-item">Webhooks</span>
             <span class="marquee-sep">·</span>
             <span class="marquee-item">Supabase</span>
+            <span class="marquee-sep">·</span>
+            <span class="marquee-item">Cloudflare</span>
             <span class="marquee-sep">·</span>
           </div>
         </div>
@@ -866,13 +872,10 @@
           <!-- Content -->
           <div class="tello-content" style="padding: clamp(1.5rem, 4vw, 2.5rem);">
             <div style="display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(232,162,92,0.12); border: 1px solid rgba(232,162,92,0.35); border-radius: 100px; padding: 3px 12px; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); margin-bottom: 0.875rem; box-shadow: 0 0 14px rgba(232,162,92,0.35), 0 0 28px rgba(232,162,92,0.12);">★ Flagship Project</div>
-            <h3
-              class="font-display"
-              style="font-size: clamp(1.875rem, 4vw, 2.5rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.625rem;"
-            >
-              Tello
-            </h3>
-            <p style="font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; letter-spacing: 0.02em;">
+            <div style="margin-bottom: 1rem;">
+              <img src="assets/Tello Logo.jpg" alt="Tello" style="height: 36px; border-radius: 8px; display: block;">
+            </div>
+            <p style="font-size: 0.8125rem; color: var(--warm-white); margin-bottom: 1.25rem; letter-spacing: 0.02em;">
               AI Voice Interview Coach
             </p>
             <p style="font-size: 0.9375rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.875rem;">
@@ -884,9 +887,9 @@
 
             <!-- Chips -->
             <div style="display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 2rem;">
+              <span class="chip">Claude Code</span>
               <span class="chip">n8n</span>
               <span class="chip">ElevenLabs</span>
-              <span class="chip">Claude Code</span>
               <span class="chip">Lovable</span>
             </div>
 
@@ -926,9 +929,9 @@
               margin-bottom: 1rem;
               font-family: 'Cormorant Garamond', serif;
               font-size: 1rem;
-            ">Helped my girlfriend find her job in London.</p>
+            "This tool helped me land my job in London" - Cenvy D' Souza</p>
             <p style="font-size: 0.875rem; color: var(--muted); line-height: 1.72; margin-bottom: 1.25rem;">
-              Scrapes the NHS jobs website, filters listings by your criteria, and delivers a personalised Excel sheet straight to your inbox — hands free.
+              Scrapes the NHS jobs website, filters listings by your criteria, and delivers a personalised Excel sheet straight to your inbox - hassle free.
             </p>
             <div style="display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 1.5rem;">
               <span class="chip">n8n</span>
@@ -936,7 +939,7 @@
               <span class="chip">Lovable</span>
             </div>
             <a href="https://ukhealthcarejobassistant.zach13.com/" target="_blank" rel="noopener" class="btn-link">
-              View Demo <span class="arrow">→</span>
+              Check it out <span class="arrow">→</span>
             </a>
           </div>
         </div>
@@ -979,7 +982,7 @@
                   ">📓</div>
                   <h4 style="font-size: 0.9375rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.5rem;">Journal Bot</h4>
                   <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.68; margin-bottom: 1rem;">
-                    Reads my Google Sheet journal at a fixed time daily. Logs achievements, to-dos, and reminds me of my girlfriend's shift times — automatically.
+                    Every morning, a daily summary lands in my Telegram - achievements logged, to-dos checked, my partner's shift schedule pulled and reminded from a Google Sheet database. No spreadsheet to look at, no habit to maintain. It just runs.
                   </p>
                   <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
                     <span class="chip">n8n</span>
@@ -1007,7 +1010,7 @@
                   ">🏋️</div>
                   <h4 style="font-size: 0.9375rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.5rem;">Gym Logger</h4>
                   <p style="font-size: 0.8125rem; color: var(--muted); line-height: 1.68; margin-bottom: 1rem;">
-                    Retrieves my recent gym reps so I know exactly what to target next — without opening a spreadsheet. Logs new entries on the way out.
+                    Retrieves my most recent session's reps and sets via Telegram before I touch a weight, so I always know exactly what to beat. Logs the new session on the way out. The spreadsheet exists on the backend, I just never have to open it.
                   </p>
                   <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
                     <span class="chip">n8n</span>
